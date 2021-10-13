@@ -1,10 +1,7 @@
-import express from 'express'
 import { setupServer } from './app'
 
-
-
-function start(){
-    setupServer()
+function start () {
+  setupServer()
 }
 
 start()
