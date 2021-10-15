@@ -1,10 +1,12 @@
 import React from 'react'
+import Header from './components/header'
+import { Page } from './styles'
 
 const Dashboard:React.FC = () => {
   return (
-    <div className="App">
-      <h1> Dashboard </h1>
-    </div>
+    <Page>
+      <Header/>
+    </Page>
   )
 }
 

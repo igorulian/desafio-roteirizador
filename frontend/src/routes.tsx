@@ -13,7 +13,8 @@ const Routes:React.FC = () => {
   return (
     <Switch>
         <Route exact path = '/login' component={Auth}/>
-        <PrivateRoute exact path = '/' component={Dashboard} />
+        <Route exact path = '/dashboard' component={Dashboard} />
+        <PrivateRoute exact path = '/dashboardPrivate' component={Dashboard} />
     </Switch>
   )
 }
