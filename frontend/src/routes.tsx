@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect, RouteProps } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
-import Login from './pages/Login'
+import Auth from './pages/Auth'
 
 const PrivateRoute = ({ ...rest }: RouteProps) => {
   const isAuthenticated = !!localStorage.getItem('token')
@@ -12,7 +12,7 @@ const PrivateRoute = ({ ...rest }: RouteProps) => {
 const Routes:React.FC = () => {
   return (
     <Switch>
-        <Route exact path = '/login' component={Login}/>
+        <Route exact path = '/login' component={Auth}/>
         <PrivateRoute exact path = '/' component={Dashboard} />
     </Switch>
   )
