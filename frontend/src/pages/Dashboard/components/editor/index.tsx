@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { EditorContainer, EditorSelector, EditorSelectorOption, OptionContainer } from './styles'
+import NewRoute from './newRoute'
+import History from './history'
+import { EditorContainer, EditorSelector, EditorSelectorOption } from './styles'
 
 const Editor:React.FC = () => {
   const [selector, setSelector] = useState(true)
@@ -8,18 +10,14 @@ const Editor:React.FC = () => {
     <EditorContainer>
 
       <EditorSelector>
-        <EditorSelectorOption onClick={() => setSelector(true)}> Nova rota </EditorSelectorOption>
-        <EditorSelectorOption onClick={() => setSelector(false)}> Histórico </EditorSelectorOption>
+        <EditorSelectorOption selected={selector} onClick={() => setSelector(true)}> Nova rota </EditorSelectorOption>
+        <EditorSelectorOption selected={!selector} onClick={() => setSelector(false)}> Histórico </EditorSelectorOption>
       </EditorSelector>
 
       {selector
-        ? <OptionContainer>
-            <p> NOVA ROTA</p>
-          </OptionContainer>
-
-        : <OptionContainer>
-            <p> GISTOIO</p>
-          </OptionContainer>}
+        ? <NewRoute/>
+        : <History/>
+      }
 
     </EditorContainer>
   )

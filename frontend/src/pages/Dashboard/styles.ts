@@ -12,5 +12,4 @@ export const Page = styled.div`
 export const PageInfo = styled.div`
     display: flex;
     height: 100%;
-    background-color: #333;
 `
