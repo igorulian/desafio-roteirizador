@@ -58,6 +58,7 @@ export const EditorInputTitle = styled.p`
     color: #262930;
     margin-top: 15px;
     margin-bottom: 5px;
+    font-weight: bold;
 `
 
 export const EditorInput = styled.input`
@@ -99,3 +100,13 @@ export const inputStyle = {
   transition: 'box-shadow 0.5s ease 0s',
   alignSelf: 'center'
 }
+
+export const AddStopButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: none;
+    cursor: pointer;
+    background-color: #fff;
+    margin-top: 20px;
+`
