@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import NewRoute from './newRoute'
+import NewRoute, { IMapInfo } from './newRoute'
 import History from './history'
 import { EditorContainer, EditorSelector, EditorSelectorOption } from './styles'
 
-const Editor:React.FC = () => {
+interface IEditorProps {
+  updateMap: Function
+}
+
+const Editor:React.FC<IEditorProps> = (props:IEditorProps) => {
   const [selector, setSelector] = useState(true)
 
   return (
@@ -15,7 +19,7 @@ const Editor:React.FC = () => {
       </EditorSelector>
 
       {selector
-        ? <NewRoute/>
+        ? <NewRoute updateMap={(data:IMapInfo) => props.updateMap(data) }/>
         : <History/>
       }
 

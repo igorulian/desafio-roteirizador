@@ -10,7 +10,12 @@ interface INewRouteProps {
   updateMap?: Function
 }
 
-interface ICoords {
+export interface IMapInfo {
+  origin: ICoords,
+  stops: ICoords[]
+}
+
+export interface ICoords {
   lat: number,
   lng: number
 }
@@ -72,20 +77,15 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
 )
 
 const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
-  const [origin, setOrigin] = useState<ICoords>()
+  const [origin, setOrigin] = useState<ICoords>({ lat: 0, lng: 0 })
   const [stops, setStops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
 
   useEffect(() => {
-    console.log(origin, stops)
+    const mapinfo:IMapInfo = { origin, stops }
 
     if (props.updateMap)
-      props.updateMap({ origin, stops })
+      props.updateMap(mapinfo)
   }, [origin, stops])
-
-  function updateOrigin (coords:ICoords) {
-    if (origin || !origin)
-      setOrigin(coords)
-  }
 
   function addStop () {
     setStops(stops => [...stops, { lat: 0, lng: 0 }])
@@ -103,7 +103,7 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   return (
     <OptionContainer>
 
-      <OriginInput onSelect={(a:ICoords) => updateOrigin(a)}/>
+      <OriginInput onSelect={(coords:ICoords) => setOrigin(coords)}/>
 
       {stops.map(stop =>
         <StopInput key={stops.indexOf(stop)} onSelect={(a:ICoords) => setStop(stops.indexOf(stop), a)}/>
