@@ -8,6 +8,7 @@ export const HeaderContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 1px 3px #cdc6c6;
+    z-index: 10;
 `
 
 export const HeaderUserInfo = styled.div`
