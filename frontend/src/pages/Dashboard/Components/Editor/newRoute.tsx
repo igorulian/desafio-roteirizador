@@ -6,6 +6,10 @@ import { colors } from '../../../../components/colors'
 import Autocomplete from 'react-google-autocomplete'
 import { AiFillPlusCircle } from 'react-icons/ai'
 
+interface INewRouteProps {
+  updateMap?: Function
+}
+
 interface ICoords {
   lat: number,
   lng: number
@@ -67,12 +71,15 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
     </StopInputContainer>
 )
 
-const NewRoute:React.FC = () => {
+const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   const [origin, setOrigin] = useState<ICoords>()
   const [stops, setStops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
 
   useEffect(() => {
     console.log(origin, stops)
+
+    if (props.updateMap)
+      props.updateMap({ origin, stops })
   }, [origin, stops])
 
   function updateOrigin (coords:ICoords) {
