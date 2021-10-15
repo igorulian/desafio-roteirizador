@@ -8,3 +8,9 @@ export const Page = styled.div`
     height: 100%;
     background-color: #fafafa;
 `
+
+export const PageInfo = styled.div`
+    display: flex;
+    height: 100%;
+    background-color: #333;
+`
