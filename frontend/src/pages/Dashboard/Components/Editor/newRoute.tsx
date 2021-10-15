@@ -20,7 +20,7 @@ interface InputOptionProps {
   style?: any
 }
 
-const GoogleApiKey = 'AIzaSyBRQRRY6z_IciTrG612AOj1iNWJQwt9eBw'
+export const GoogleApiKey = 'AIzaSyBRQRRY6z_IciTrG612AOj1iNWJQwt9eBw'
 
 const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
   return (
