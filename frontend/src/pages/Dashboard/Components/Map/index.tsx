@@ -1,13 +1,14 @@
 import React from 'react'
 import { MapContainer } from './styles'
 import GoogleMapReact from 'google-map-react'
-import { GoogleApiKey, ICoords, IMapInfo } from '../Editor/newRoute'
+import { GoogleApiKey, ICoords } from '../Editor/newRoute'
 import { IoLocationSharp } from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib'
 import { colors } from '../../../../components/colors'
 
 interface IMapProps {
-  data: IMapInfo
+  origin: ICoords,
+  stops: ICoords[]
 }
 
 interface ILocationPinProps {
@@ -17,22 +18,28 @@ interface ILocationPinProps {
   text?: string
 }
 
-const LocationPin:React.FC<ILocationPinProps> = (props:ILocationPinProps) => (
-  <IconContext.Provider value={{ color: props.color, size: '30px' }}>
+const LocationPin:React.FC<ILocationPinProps> = (props:ILocationPinProps) => {
+  if ((props.lat + props.lng) === 0) return null
+  return (
+    <IconContext.Provider value={{ color: props.color, size: '30px' }}>
     <IoLocationSharp/>
-  </IconContext.Provider>
-)
+   </IconContext.Provider>
+  )
+}
+
+function isValidCoord (coord:ICoords) {
+  return !(coord.lng + coord.lat === 0)
+}
 
 const Map:React.FC<IMapProps> = (props:IMapProps) => {
-  const origin:ICoords = props.data.origin
-  const stops:ICoords[] = props.data.stops
+  const origin:ICoords = props.origin
+  const stops:ICoords[] = props.stops
 
   return (
         <MapContainer>
          <GoogleMapReact
           bootstrapURLKeys={{ key: GoogleApiKey }}
-          defaultCenter={{ lat: -21.6219061, lng: -49.0729871 }}
-          defaultZoom={11}
+          zoom={isValidCoord(origin) ? 9 : 3}
           center={origin}
         >
 

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import NewRoute, { IMapInfo } from './newRoute'
+import NewRoute, { ICoords } from './newRoute'
 import History from './history'
 import { EditorContainer, EditorSelector, EditorSelectorOption } from './styles'
+import { FaRoute, FaHistory } from 'react-icons/fa'
 
 interface IEditorProps {
-  updateMap: Function
+  updateOrigin: Function,
+  updateStops: Function
 }
 
 const Editor:React.FC<IEditorProps> = (props:IEditorProps) => {
@@ -14,12 +16,28 @@ const Editor:React.FC<IEditorProps> = (props:IEditorProps) => {
     <EditorContainer>
 
       <EditorSelector>
-        <EditorSelectorOption selected={selector} onClick={() => setSelector(true)}> Nova rota </EditorSelectorOption>
-        <EditorSelectorOption selected={!selector} onClick={() => setSelector(false)}> Histórico </EditorSelectorOption>
+        <EditorSelectorOption
+          selected={selector}
+          onClick={() => setSelector(true)}>
+
+          <FaRoute style={{ marginRight: '10px' }}/>
+           Nova rota
+        </EditorSelectorOption>
+
+        <EditorSelectorOption
+          selected={!selector}
+          onClick={() => setSelector(false)}>
+
+          <FaHistory style={{ marginRight: '10px' }}/>
+          Histórico
+        </EditorSelectorOption>
       </EditorSelector>
 
       {selector
-        ? <NewRoute updateMap={(data:IMapInfo) => props.updateMap(data) }/>
+        ? <NewRoute
+            updateOrigin={(data:ICoords) => props.updateOrigin(data)}
+            updateStops={(data:ICoords[]) => props.updateStops(data)}
+          />
         : <History/>
       }
 

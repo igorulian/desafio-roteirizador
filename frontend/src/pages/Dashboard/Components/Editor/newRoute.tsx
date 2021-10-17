@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StopInputContainer, EditorInputTitle, OptionContainer, OriginInputContainer, inputStyle, AddStopButton } from './styles'
 import { BiCurrentLocation } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
@@ -7,12 +7,8 @@ import Autocomplete from 'react-google-autocomplete'
 import { AiFillPlusCircle } from 'react-icons/ai'
 
 interface INewRouteProps {
-  updateMap?: Function
-}
-
-export interface IMapInfo {
-  origin: ICoords,
-  stops: ICoords[]
+  updateOrigin: Function,
+  updateStops: Function
 }
 
 export interface ICoords {
@@ -63,9 +59,7 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
       <Autocomplete
           placeholder='Digite um local de parada'
           apiKey={GoogleApiKey}
-          options={{
-            types: ['geocode', 'establishment']
-          }}
+          options={{ types: ['geocode', 'establishment'] }}
           onPlaceSelected={(place) => {
             const lat = place.geometry?.location?.lat()
             const lng = place.geometry?.location?.lng()
@@ -77,41 +71,47 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
 )
 
 const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
-  const [origin, setOrigin] = useState<ICoords>({ lat: 0, lng: 0 })
-  const [stops, setStops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
-
-  useEffect(() => {
-    const mapinfo:IMapInfo = { origin, stops }
-
-    if (props.updateMap)
-      props.updateMap(mapinfo)
-  }, [origin, stops])
+  const [stopsInput, setStopsInput] = useState<number[]>([0])
+  const [stops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
 
   function addStop () {
-    setStops(stops => [...stops, { lat: 0, lng: 0 }])
+    setStopsInput(sinpt => [...sinpt, (sinpt.length)])
+    props.updateStops(stops)
   }
 
-  function setStop (inx:number, coords:ICoords) {
-    const newStops:ICoords[] = stops
+  function changeStop (inx:number, coords:ICoords) {
+    console.log(`Alterando: inx: ${inx} | Para: ${coords.lat}, ${coords.lng}`)
+    stops[inx] = coords
+    console.log(stops)
+    props.updateStops(stops)
+  }
 
-    if (newStops !== undefined)
-      newStops[inx] = coords
+  function changeOrigin (coords: ICoords) {
+    props.updateOrigin(coords)
+  }
 
-    setStops(newStops)
+  function changeOriginToCurrentLocation () {
+    if (!('geolocation' in navigator))
+      alert('O seu navegador não possui Geolocalização :|')
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords.latitude)
+      console.log(position.coords.longitude)
+    })
   }
 
   return (
     <OptionContainer>
 
-      <OriginInput onSelect={(coords:ICoords) => setOrigin(coords)}/>
+      <OriginInput onSelect={(coords:ICoords) => changeOrigin(coords)}/>
 
-      {stops.map(stop =>
-        <StopInput key={stops.indexOf(stop)} onSelect={(a:ICoords) => setStop(stops.indexOf(stop), a)}/>
+      {stopsInput.map(stop =>
+        <StopInput key={stop} onSelect={(a:ICoords) => changeStop(stop, a)}/>
       )}
 
       <AddStopButton onClick={() => { addStop() }}>
         <IconContext.Provider value={{ color: colors.primary, size: '30px' }}>
-          <AiFillPlusCircle/>
+          <AiFillPlusCircle onClick={() => changeOriginToCurrentLocation()}/>
         </IconContext.Provider>
 
       </AddStopButton>

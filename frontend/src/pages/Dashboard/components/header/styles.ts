@@ -28,7 +28,7 @@ export const HeaderUserImage = styled.img`
 export const HeaderUserName = styled.p`
     @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
     font-family: 'Public Sans', sans-serif; 
-    font-size: 20px;
+    font-size: 18px;
     margin-right: 30px;
     color: #333;
 `

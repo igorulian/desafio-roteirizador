@@ -19,12 +19,20 @@ export const EditorSelector = styled.div`
     height: 60px;
 `
 
-export const EditorSelectorOption = styled.button<SelectorOptionProps>`
+export const EditorSelectorOption = styled.button<SelectorOptionProps>`    
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+    display: flex;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 17px;
+    color: #6c6c6c;
     border-style: none;
     width: 100%;
     height: 100%;
     cursor: pointer;
-    background-color:  ${props => props.selected ? '#fff' : '#fafafa'};
+    background-color:  ${props => props.selected ? '#fff' : '#ccc'};
+    opacity: ${props => props.selected ? '1' : '.4'};
+    align-items: center;
+    justify-content: center;
 `
 
 export const OptionContainer = styled.div`
