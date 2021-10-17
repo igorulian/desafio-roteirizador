@@ -138,10 +138,19 @@ export const AddStopButton = styled.button`
 `
 
 export const RouteInfoContainer = styled.div`
-    background-color: #333;
-    height: 200px;
+    height: 100px;
     width: 100%;
     bottom: 0;
+    border-top: 1px solid #ccc;
+    padding-left: 20px;
+    padding-top: 20px;
+`
+
+export const RouteInfoText = styled.p`    
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+    font-family: 'Public Sans', sans-serif;
+    font-size: 17px;
+    color: #6c6c6c
 `
 
 export const SaveRouteButton = styled.button`
@@ -168,4 +177,10 @@ export const InputsContainer = styled.div`
     display: flex;
     flex-direction: column; 
     align-items: center 
+`
+
+export const HorizontalDiv = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
 `
