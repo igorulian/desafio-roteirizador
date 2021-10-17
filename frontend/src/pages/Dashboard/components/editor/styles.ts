@@ -1,13 +1,19 @@
 import styled from 'styled-components'
+import { colors } from '../../../../components/colors'
 
 interface SelectorOptionProps {
     selected: boolean
+}
+
+interface StopsInputContainerProps {
+    ammount: number
 }
 
 export const EditorContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 25%;
+    min-width: 320px;
     height: 100%;
     box-shadow: 0 1px 3px #cdc6c6;
 `
@@ -17,6 +23,7 @@ export const EditorSelector = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 60px;
+    min-height: 50px;
 `
 
 export const EditorSelectorOption = styled.button<SelectorOptionProps>`    
@@ -35,13 +42,24 @@ export const EditorSelectorOption = styled.button<SelectorOptionProps>`
     justify-content: center;
 `
 
+export const StopsInputContainer = styled.div<StopsInputContainerProps>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    ${props => props.ammount >= 4 &&
+    'overflow-y: scroll;'
+    }
+    max-height: 250px;
+`
+
 export const OptionContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: #fff;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding-top: 100px;
 `
@@ -117,4 +135,37 @@ export const AddStopButton = styled.button`
     cursor: pointer;
     background-color: #fff;
     margin-top: 20px;
+`
+
+export const RouteInfoContainer = styled.div`
+    background-color: #333;
+    height: 200px;
+    width: 100%;
+    bottom: 0;
+`
+
+export const SaveRouteButton = styled.button`
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+    font-family: 'Public Sans', sans-serif;
+    display: flex;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+    border-style: none;
+    cursor: pointer;
+    background-color: ${colors.secundary};
+    width: 60%;
+    height: 50px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 20px;
+    &:hover{
+        opacity: 0.9;
+    }
+`
+export const InputsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center 
 `
