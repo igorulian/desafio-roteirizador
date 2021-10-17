@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { StopInputContainer, EditorInputTitle, OptionContainer, OriginInputContainer, inputStyle, AddStopButton } from './styles'
+import { StopInputContainer, EditorInputTitle, OptionContainer, OriginInputContainer, inputStyle, AddStopButton, RouteInfoContainer, StopsInputContainer, SaveRouteButton, InputsContainer, RouteInfoText, HorizontalDiv } from './styles'
 import { BiCurrentLocation } from 'react-icons/bi'
 import { IconContext } from 'react-icons'
 import { colors } from '../../../../components/colors'
 import Autocomplete from 'react-google-autocomplete'
 import { AiFillPlusCircle } from 'react-icons/ai'
+import { RiSave3Fill } from 'react-icons/ri'
+import { FaRoute } from 'react-icons/fa'
+import { FiClock } from 'react-icons/fi'
 
 interface INewRouteProps {
   updateOrigin: Function,
@@ -24,6 +27,18 @@ interface InputOptionProps {
 export const GoogleApiKey = 'AIzaSyBRQRRY6z_IciTrG612AOj1iNWJQwt9eBw'
 
 const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
+  function setToCurrentLocation () {
+    if (!navigator || !navigator.geolocation)
+      return alert('O seu navegador não possui Geolocalização :|')
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
+      props.onSelect(currentPosition)
+    }, () => {
+      return alert('Não foi possivel pegar sua localização atual :|')
+    })
+  }
+
   return (
   <OriginInputContainer>
       <EditorInputTitle> Origem: </EditorInputTitle>
@@ -44,7 +59,7 @@ const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
         />
 
         <IconContext.Provider value={{ color: colors.primary, size: '30px', style: { cursor: 'pointer', marginLeft: '10px' } }}>
-          <BiCurrentLocation/>
+          <BiCurrentLocation onClick={() => setToCurrentLocation()}/>
         </IconContext.Provider>
 
       </div>
@@ -72,6 +87,7 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
 
 const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   const [stopsInput, setStopsInput] = useState<number[]>([0])
+  const [start, setStart] = useState<ICoords>({ lat: 0, lng: 0 })
   const [stops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
 
   function addStop () {
@@ -87,34 +103,51 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   }
 
   function changeOrigin (coords: ICoords) {
+    setStart(coords)
     props.updateOrigin(coords)
   }
 
-  function changeOriginToCurrentLocation () {
-    if (!('geolocation' in navigator))
-      alert('O seu navegador não possui Geolocalização :|')
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords.latitude)
-      console.log(position.coords.longitude)
-    })
+  function saveRoute () {
+    console.log('SALVANDO>')
+    console.log(start, stops)
   }
 
   return (
     <OptionContainer>
+      <InputsContainer>
 
-      <OriginInput onSelect={(coords:ICoords) => changeOrigin(coords)}/>
+        <OriginInput onSelect={(coords:ICoords) => changeOrigin(coords)}/>
 
-      {stopsInput.map(stop =>
-        <StopInput key={stop} onSelect={(a:ICoords) => changeStop(stop, a)}/>
-      )}
+        <StopsInputContainer ammount={stopsInput.length}>
+          {stopsInput.map(stop =>
+            <StopInput key={stop} onSelect={(a:ICoords) => changeStop(stop, a)}/>
+          )}
+        </StopsInputContainer>
 
-      <AddStopButton onClick={() => { addStop() }}>
-        <IconContext.Provider value={{ color: colors.primary, size: '30px' }}>
-          <AiFillPlusCircle onClick={() => changeOriginToCurrentLocation()}/>
-        </IconContext.Provider>
+        <AddStopButton onClick={() => { addStop() }}>
+          <IconContext.Provider value={{ color: colors.primary, size: '30px' }}>
+            <AiFillPlusCircle/>
+          </IconContext.Provider>
+        </AddStopButton>
 
-      </AddStopButton>
+      </InputsContainer>
+
+        <SaveRouteButton onClick={() => saveRoute()}>
+          <RiSave3Fill style={{ marginRight: '10px' }}/>
+           Salvar Rota
+        </SaveRouteButton>
+
+      <RouteInfoContainer>
+        <HorizontalDiv>
+          <FaRoute style={{ marginRight: '10px' }}/>
+          <RouteInfoText> Distância: 50km</RouteInfoText>
+        </HorizontalDiv>
+
+        <HorizontalDiv style={{ marginTop: '10px' }}>
+          <FiClock style={{ marginRight: '10px' }}/>
+          <RouteInfoText> Tempo estimado: 5min</RouteInfoText>
+        </HorizontalDiv>
+      </RouteInfoContainer>
     </OptionContainer>
   )
 }
