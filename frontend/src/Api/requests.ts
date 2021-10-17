@@ -1,4 +1,5 @@
-import api from './api'
+import { ICoords } from '../pages/Dashboard/Components/Editor/newRoute'
+import api, { authorizaton } from './api'
 
 export interface IRegisterRequest {
     username: string,
@@ -67,6 +68,32 @@ export async function requestLogin (data:ILoginRequest) {
     localStorage.setItem('username', response.data.username)
 
     return { token: response.data.token, username: response.data.username }
+  } catch (error:any) {
+    return { error: error.response ? error.response.data.error : 'Ocorreu um erro com os nossos servidores' }
+  }
+}
+
+interface IaddRoute {
+  origin: ICoords,
+  stops: ICoords[]
+}
+
+export async function addRoute (data:IaddRoute) {
+  try {
+    const { stops, origin } = data
+
+    if (!origin || !stops)
+      return { error: 'Ocorreu um erro' }
+
+    const response:IRegisterResponse = await api.post('/history/add', data, authorizaton)
+
+    if (!response.data)
+      return { error: 'Ocorreu um erro ao adicionar a rota' }
+
+    if (response.error)
+      return { error: response.error }
+
+    return {}
   } catch (error:any) {
     return { error: error.response ? error.response.data.error : 'Ocorreu um erro com os nossos servidores' }
   }

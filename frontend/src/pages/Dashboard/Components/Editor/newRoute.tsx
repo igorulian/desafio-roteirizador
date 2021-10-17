@@ -8,6 +8,7 @@ import { AiFillPlusCircle } from 'react-icons/ai'
 import { RiSave3Fill } from 'react-icons/ri'
 import { FaRoute } from 'react-icons/fa'
 import { FiClock } from 'react-icons/fi'
+import { addRoute } from '../../../../Api/requests'
 
 interface INewRouteProps {
   updateOrigin: Function,
@@ -89,6 +90,7 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   const [stopsInput, setStopsInput] = useState<number[]>([0])
   const [start, setStart] = useState<ICoords>({ lat: 0, lng: 0 })
   const [stops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
+  const [loading, setLoading] = useState(false)
 
   function addStop () {
     setStopsInput(sinpt => [...sinpt, (sinpt.length)])
@@ -96,7 +98,6 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   }
 
   function changeStop (inx:number, coords:ICoords) {
-    console.log(`Alterando: inx: ${inx} | Para: ${coords.lat}, ${coords.lng}`)
     stops[inx] = coords
     console.log(stops)
     props.updateStops(stops)
@@ -107,9 +108,15 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
     props.updateOrigin(coords)
   }
 
-  function saveRoute () {
-    console.log('SALVANDO>')
-    console.log(start, stops)
+  async function saveRoute () {
+    setLoading(true)
+    const response = await addRoute({ origin: start, stops })
+    setLoading(false)
+
+    if (response.error)
+      return alert(response.error)
+
+    alert('Rota salva com sucesso!')
   }
 
   return (
@@ -134,7 +141,7 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
 
         <SaveRouteButton onClick={() => saveRoute()}>
           <RiSave3Fill style={{ marginRight: '10px' }}/>
-           Salvar Rota
+           {loading ? 'Carregando...' : 'Salvar Rota'}
         </SaveRouteButton>
 
       <RouteInfoContainer>
