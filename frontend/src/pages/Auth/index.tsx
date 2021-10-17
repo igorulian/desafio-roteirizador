@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
-import { requestRegister } from '../../Api/requests'
+import { ILoginRequest, IRegisterRequest, requestLogin, requestRegister } from '../../Api/requests'
 import Login from './login'
 import Register from './register'
 import { Page } from './styles'
-
-export interface IRegisterData {
-  username: string,
-  email: string,
-  password: string,
-  password2: string
-}
 
 const Auth:React.FC = () => {
   const [page, setPage] = useState('register')
@@ -19,13 +12,22 @@ const Auth:React.FC = () => {
     setPage(page === 'login' ? 'register' : 'login')
   }
 
-  async function handleRegister (data:IRegisterData) {
+  async function handleRegister (data:IRegisterRequest) {
     setLoading(true)
     const response = await requestRegister(data)
+    setLoading(false)
+
+    if (response.error)
+      return alert(response.error)
 
     setLoading(false)
-    if (!response)
-      return alert('Ocorreu um erro ao efetuar o cadastro')
+    window.location.href = '/dashboard'
+  }
+
+  async function handleLogin (data:ILoginRequest) {
+    setLoading(true)
+    const response = await requestLogin(data)
+    setLoading(false)
 
     if (response.error)
       return alert(response.error)
@@ -37,7 +39,11 @@ const Auth:React.FC = () => {
   return (
     <Page>
       {page === 'login'
-        ? <Login onChangePage={() => changePage()}/>
+        ? <Login
+          onChangePage={() => changePage()}
+          loading={loading}
+          handleLogin={handleLogin}
+          />
         : <Register
             onChangePage={() => changePage()}
             handleRegister={handleRegister}

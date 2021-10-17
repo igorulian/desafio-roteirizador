@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, LoginButton, LoginContainer, LoginTitle, InputContainer, InputTitle, TitleContainer } from './styles'
 import { FiArrowLeft } from 'react-icons/fi'
 import { IconContext } from 'react-icons'
 import { colors } from '../../components/colors'
 
 interface LoginProps {
-  onChangePage: Function
+  onChangePage: Function,
+  loading: boolean,
+  handleLogin: Function
 }
 
 const Login:React.FC<LoginProps> = (props:LoginProps) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   return (
       <LoginContainer>
         <TitleContainer>
@@ -21,15 +26,15 @@ const Login:React.FC<LoginProps> = (props:LoginProps) => {
 
         <InputContainer>
           <InputTitle> Email </InputTitle>
-          <Input placeholder='Digite seu email'/>
+          <Input placeholder='Digite seu email' onChange={(data) => setEmail(data.target.value)}/>
         </InputContainer>
 
         <InputContainer>
           <InputTitle> Senha </InputTitle>
-          <Input placeholder='Digite sua senha'/>
+          <Input placeholder='Digite sua senha' onChange={(data) => setPassword(data.target.value)}/>
         </InputContainer>
 
-        <LoginButton> ENTRAR </LoginButton>
+        <LoginButton onClick={() => props.handleLogin({ email, password })}> {props.loading ? 'Carregando...' : 'ENTRAR' }</LoginButton>
       </LoginContainer>
   )
 }
