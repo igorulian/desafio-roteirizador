@@ -32,7 +32,7 @@ export const HeaderUserName = styled.p`
     color: #333;
 `
 
-export const HeaderLogo = styled.p`
-    font-size: 20px;
+export const HeaderLogo = styled.img`
     margin-left: 50px;
+    height: 60%;
 `
