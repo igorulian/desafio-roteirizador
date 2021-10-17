@@ -17,11 +17,12 @@ export const HeaderUserInfo = styled.div`
 `
 
 export const HeaderUserImage = styled.img`
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50px;
-    background-color: #f1f;
+    background-color: #ccc;
     margin-right: 50px;
+    cursor: pointer;
 `
 
 export const HeaderUserName = styled.p`
