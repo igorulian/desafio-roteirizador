@@ -6,8 +6,8 @@ import Map from './Components/Map'
 import { ICoords } from './Components/Editor/newRoute'
 
 const Dashboard:React.FC = () => {
-  const [origin, setOrigin] = useState<ICoords>({ lat: 0, lng: 0 })
-  const [stops, setStops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
+  const [origin, setOrigin] = useState<ICoords>({ lat: 0, lng: 0, name: '' })
+  const [stops, setStops] = useState<ICoords[]>([{ lat: 0, lng: 0, name: '' }])
   const [reload, setReload] = useState(1)
 
   useEffect(() => {

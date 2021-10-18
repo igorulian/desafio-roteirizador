@@ -16,6 +16,7 @@ export interface INewRouteProps {
 }
 
 export interface ICoords {
+  name: string,
   lat: number,
   lng: number
 }
@@ -33,7 +34,7 @@ const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
       return alert('O seu navegador não possui Geolocalização :|')
 
     navigator.geolocation.getCurrentPosition((position) => {
-      const currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude }
+      const currentPosition = { lat: position.coords.latitude, lng: position.coords.longitude, name: 'Posição atual' }
       props.onSelect(currentPosition)
     }, () => {
       return alert('Não foi possivel pegar sua localização atual :|')
@@ -54,7 +55,8 @@ const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
           onPlaceSelected={(place) => {
             const lat = place.geometry?.location?.lat()
             const lng = place.geometry?.location?.lng()
-            props.onSelect({ lat, lng })
+            const name = place.address_components[0]?.long_name
+            props.onSelect({ lat, lng, name })
           }}
           style={inputStyle}
         />
@@ -79,7 +81,8 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
           onPlaceSelected={(place) => {
             const lat = place.geometry?.location?.lat()
             const lng = place.geometry?.location?.lng()
-            props.onSelect({ lat, lng })
+            const name = place.address_components[0]?.long_name
+            props.onSelect({ lat, lng, name })
           }}
           style={inputStyle}
         />
@@ -88,8 +91,8 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
 
 const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   const [stopsInput, setStopsInput] = useState<number[]>([0])
-  const [start, setStart] = useState<ICoords>({ lat: 0, lng: 0 })
-  const [stops] = useState<ICoords[]>([{ lat: 0, lng: 0 }])
+  const [start, setStart] = useState<ICoords>({ lat: 0, lng: 0, name: '' })
+  const [stops] = useState<ICoords[]>([{ lat: 0, lng: 0, name: '' }])
   const [loading, setLoading] = useState(false)
 
   function addStop () {

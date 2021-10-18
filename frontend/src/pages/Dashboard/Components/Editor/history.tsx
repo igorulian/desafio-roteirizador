@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { MdArrowForwardIos } from 'react-icons/md'
+import { FaRoute } from 'react-icons/fa'
+import { IconContext } from 'react-icons/lib'
+import { MdArrowForwardIos, MdTripOrigin } from 'react-icons/md'
 import { IRouteResponse, listRoutes } from '../../../../Api/requests'
+import { colors } from '../../../../components/colors'
 import { ICoords, INewRouteProps } from './newRoute'
-import { HistoryContainer, RouteContainer, RouteContent } from './styles'
+import { HistoryContainer, HorizontalDiv, RouteContainer, RouteContent, RouteDescription, RouteTitle } from './styles'
 
 interface IRouteProps extends INewRouteProps {
   route: IRouteResponse,
@@ -15,14 +18,29 @@ const Route:React.FC<IRouteProps> = (props:IRouteProps) => {
     props.updateStops(props.route.stops)
   }
 
-  const stops = props.route.stops.length
+  let stopsText = ''
+  const { stops } = props.route
+  stops.forEach(stop => (stopsText += `${stops.indexOf(stop) > 0 ? ' - ' : ''}${stop.name}`))
 
   return (
     <RouteContainer onClick={() => updateMap()}>
+      <IconContext.Provider value={{ color: colors.primary }}>
       <RouteContent>
-        <p> Rota #{props.index}</p>
-        <p> {stops} parada{stops > 1 && 's'}</p>
+        <div>
+          <HorizontalDiv>
+           <MdTripOrigin style={{ marginRight: '6px' }}/> <RouteTitle> Origem: </RouteTitle>
+          </HorizontalDiv>
+          <RouteDescription> {props.route.origin.name} </RouteDescription>
+        </div>
+        <div>
+          <HorizontalDiv>
+            <FaRoute style={{ marginRight: '6px' }}/> <RouteTitle style={{ marginTop: '7px' }}> Rota: </RouteTitle>
+          </HorizontalDiv>
+          <RouteDescription> {stopsText} </RouteDescription>
+        </div>
       </RouteContent>
+
+      </IconContext.Provider>
 
       <MdArrowForwardIos style={{ marginRight: '15px' }}/>
     </RouteContainer>
@@ -47,7 +65,7 @@ const History:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   }, [])
 
   return (
-        <HistoryContainer>
+        <HistoryContainer ammount={routes.length}>
           {routes.map(route =>
             <Route
               index={routes.indexOf(route)}

@@ -53,7 +53,7 @@ export const StopsInputContainer = styled.div<StopsInputContainerProps>`
     max-height: 250px;
 `
 
-export const HistoryContainer = styled.div`
+export const HistoryContainer = styled.div<StopsInputContainerProps>`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -217,5 +217,18 @@ export const RouteContent = styled.div`
     align-items: flex-start;
     justify-content: center;
     margin-left: 20px;
-    
+`
+export const RouteTitle = styled.p`
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+    font-family: 'Public Sans', sans-serif; 
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+`
+
+export const RouteDescription = styled.p`
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+    font-family: 'Public Sans', sans-serif; 
+    color: #333;
+    font-size: 14px;
 `

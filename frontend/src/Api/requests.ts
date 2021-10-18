@@ -74,6 +74,7 @@ export async function requestLogin (data:ILoginRequest) {
 }
 interface ICoordsResponse {
   _id: string,
+  name: string,
   lat: number,
   lng: number
 }
