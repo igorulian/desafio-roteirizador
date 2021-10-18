@@ -33,6 +33,8 @@ Além disso, será necessário preencher os campos do arquivo .env, para isso vo
 o arquivo '.env-example' na pasta do servidor, que contém o exemplo das variáveis, conforme o texto abaixo.
 Após preencher todos os campos, renomeie o arquivo de '.env-example' para '.env'. 
 
+Para esse projeto o único link necessário será o de conexão com o banco de dados MongoDB, para adquirir um de maneria fácil, masta entrar em https://account.mongodb.com, criar um banco de dados, e pegar o link de conxão com o banco.
+
 ```bash  
 MONGO_CONNECT_LINK=
 ```
