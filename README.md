@@ -49,9 +49,9 @@ $ git clone https://github.com/igorulian/desafio-roteirizador.git
 $ cd backend
 
 # Instale as dependências
-$ yarn install
+$ yarn install (ou 'npm install', caso não possua yarn)
 
-# Rode o arquivo server.js em modo de desenvolvimento
+# Rode o servidor em modo de desenvolvimento
 $ yarn dev
 
 ```
@@ -64,7 +64,7 @@ $ yarn dev
 $ cd frontend  
 
 # Instale as dependências
-$ yarn install
+$ yarn install (ou 'npm install', caso não possua yarn)
 
 # Rode a aplicação web
 $ yarn start
