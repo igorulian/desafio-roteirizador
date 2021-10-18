@@ -203,8 +203,10 @@ export const RouteContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100px;
-    background-color: #fafafa;
+    height: fit-content;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #fafafb;
     color: #262930;
     box-shadow: #e5e7eb 0px 0px 0px 1px inset;
     margin-top: 20px;
@@ -215,8 +217,10 @@ export const RouteContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     margin-left: 20px;
+    height: 100%;
+    max-width: 30%;
 `
 export const RouteTitle = styled.p`
     @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');

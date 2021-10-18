@@ -5,11 +5,10 @@ import { IconContext } from 'react-icons'
 import { colors } from '../../../../components/colors'
 import Autocomplete from 'react-google-autocomplete'
 import { AiFillPlusCircle } from 'react-icons/ai'
-import { RiSave3Fill } from 'react-icons/ri'
-import { FaRoute } from 'react-icons/fa'
-import { FiClock } from 'react-icons/fi'
+import { RiRulerLine, RiSave3Fill } from 'react-icons/ri'
+import { ImClock } from 'react-icons/im'
 import { addRoute } from '../../../../Api/requests'
-import { calculateDistanceGeral } from './distance'
+import { calculateRouteDistance } from './distance'
 
 export interface INewRouteProps {
   updateOrigin: Function,
@@ -96,6 +95,8 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
   const [stops] = useState<ICoords[]>([{ lat: 0, lng: 0, name: '' }])
   const [loading, setLoading] = useState(false)
 
+  const { distance, travelTime } = calculateRouteDistance(start, stops)
+
   function addStop () {
     setStopsInput(sinpt => [...sinpt, (sinpt.length)])
     props.updateStops(stops)
@@ -150,13 +151,13 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
 
       <RouteInfoContainer>
         <HorizontalDiv>
-          <FaRoute style={{ marginRight: '10px' }}/>
-          <RouteInfoText> Distância: {calculateDistanceGeral(start, stops).toFixed(0)}km</RouteInfoText>
+          <RiRulerLine style={{ marginRight: '10px' }}/>
+          <RouteInfoText> Distância: {distance}km</RouteInfoText>
         </HorizontalDiv>
 
         <HorizontalDiv style={{ marginTop: '10px' }}>
-          <FiClock style={{ marginRight: '10px' }}/>
-          <RouteInfoText> Tempo estimado: {((calculateDistanceGeral(start, stops) / 100) * 60).toFixed(0)}min</RouteInfoText>
+          <ImClock style={{ marginRight: '10px' }}/>
+          <RouteInfoText> Tempo estimado: {travelTime}min</RouteInfoText>
         </HorizontalDiv>
       </RouteInfoContainer>
     </OptionContainer>

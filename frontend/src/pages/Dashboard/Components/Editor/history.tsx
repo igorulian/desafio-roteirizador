@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { FaRoute } from 'react-icons/fa'
+import { ImClock } from 'react-icons/im'
 import { IconContext } from 'react-icons/lib'
 import { MdArrowForwardIos, MdTripOrigin } from 'react-icons/md'
+import { RiRulerLine } from 'react-icons/ri'
 import { IRouteResponse, listRoutes } from '../../../../Api/requests'
 import { colors } from '../../../../components/colors'
+import { calculateRouteDistance } from './distance'
 import { ICoords, INewRouteProps } from './newRoute'
 import { HistoryContainer, HorizontalDiv, RouteContainer, RouteContent, RouteDescription, RouteTitle } from './styles'
 
@@ -19,30 +22,53 @@ const Route:React.FC<IRouteProps> = (props:IRouteProps) => {
   }
 
   let stopsText = ''
-  const { stops } = props.route
-  stops.forEach(stop => (stopsText += `${stops.indexOf(stop) > 0 ? ' - ' : ''}${stop.name}`))
+  const { stops, origin } = props.route
+
+  stops.forEach(stop => (stopsText += `${stops.indexOf(stop) > 0 ? ' 🠪 ' : ''}${stop.name}`))
+
+  const { distance, travelTime } = calculateRouteDistance(origin, stops)
 
   return (
     <RouteContainer onClick={() => updateMap()}>
-      <IconContext.Provider value={{ color: colors.primary }}>
-      <RouteContent>
-        <div>
-          <HorizontalDiv>
-           <MdTripOrigin style={{ marginRight: '6px' }}/> <RouteTitle> Origem: </RouteTitle>
-          </HorizontalDiv>
-          <RouteDescription> {props.route.origin.name} </RouteDescription>
-        </div>
-        <div>
-          <HorizontalDiv>
-            <FaRoute style={{ marginRight: '6px' }}/> <RouteTitle style={{ marginTop: '7px' }}> Rota: </RouteTitle>
-          </HorizontalDiv>
-          <RouteDescription> {stopsText} </RouteDescription>
-        </div>
-      </RouteContent>
+      <IconContext.Provider value={{ color: colors.primary, style: { marginRight: '6px' } }}>
+
+        <RouteContent>
+          <div>
+            <HorizontalDiv>
+              <MdTripOrigin/>
+              <RouteTitle> Origem: </RouteTitle>
+            </HorizontalDiv>
+            <RouteDescription> {props.route.origin.name} </RouteDescription>
+          </div>
+          <div>
+            <HorizontalDiv>
+              <FaRoute/>
+              <RouteTitle style={{ marginTop: '7px' }}> Rota: </RouteTitle>
+            </HorizontalDiv>
+            <RouteDescription> {stopsText} </RouteDescription>
+          </div>
+        </RouteContent>
+
+        <RouteContent>
+          <div>
+            <HorizontalDiv>
+              <RiRulerLine/>
+              <RouteTitle> Distância: </RouteTitle>
+            </HorizontalDiv>
+            <RouteDescription> {distance}km </RouteDescription>
+          </div>
+          <div>
+            <HorizontalDiv>
+              <ImClock/>
+              <RouteTitle style={{ marginTop: '7px' }}> Tempo: </RouteTitle>
+            </HorizontalDiv>
+            <RouteDescription> {travelTime}min </RouteDescription>
+          </div>
+        </RouteContent>
 
       </IconContext.Provider>
 
-      <MdArrowForwardIos style={{ marginRight: '15px' }}/>
+      <MdArrowForwardIos style={{ marginRight: '15px', marginLeft: '20px' }}/>
     </RouteContainer>
   )
 }

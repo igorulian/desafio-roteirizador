@@ -1,6 +1,6 @@
 import { ICoords } from './newRoute'
 
-export function calculateDistanceGeral (origin:ICoords, stops:ICoords[]) {
+export function calculateRouteDistance (origin:ICoords, stops:ICoords[]) {
   let firstDist = calculateDistance(origin, stops[0])
 
   if (stops.length > 1) {
@@ -9,8 +9,9 @@ export function calculateDistanceGeral (origin:ICoords, stops:ICoords[]) {
         firstDist += calculateDistance(stops[x], stops[x + 1])
     }
   }
-
-  return firstDist
+  const distance = firstDist.toFixed(0)
+  const travelTime = ((firstDist / 100) * 60).toFixed(0) // 100km/h
+  return { distance, travelTime }
 }
 
 export function calculateDistance (origin:ICoords, dest:ICoords, unit = 'K') {
