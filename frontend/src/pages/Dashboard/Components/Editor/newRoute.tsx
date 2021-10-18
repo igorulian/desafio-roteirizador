@@ -9,6 +9,7 @@ import { RiSave3Fill } from 'react-icons/ri'
 import { FaRoute } from 'react-icons/fa'
 import { FiClock } from 'react-icons/fi'
 import { addRoute } from '../../../../Api/requests'
+import { calculateDistanceGeral } from './distance'
 
 export interface INewRouteProps {
   updateOrigin: Function,
@@ -150,12 +151,12 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
       <RouteInfoContainer>
         <HorizontalDiv>
           <FaRoute style={{ marginRight: '10px' }}/>
-          <RouteInfoText> Distância: 50km</RouteInfoText>
+          <RouteInfoText> Distância: {calculateDistanceGeral(start, stops).toFixed(2)}km</RouteInfoText>
         </HorizontalDiv>
 
         <HorizontalDiv style={{ marginTop: '10px' }}>
           <FiClock style={{ marginRight: '10px' }}/>
-          <RouteInfoText> Tempo estimado: 5min</RouteInfoText>
+          <RouteInfoText> Tempo estimado: </RouteInfoText>
         </HorizontalDiv>
       </RouteInfoContainer>
     </OptionContainer>
