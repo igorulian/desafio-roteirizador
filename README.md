@@ -12,7 +12,7 @@
  <img src="https://github.com/igorulian/desafio-roteirizador/blob/main/frontend/assets/Screenshot2.png" alt="register" border="0" width="48%" heigth="18%">
  <img src="https://github.com/igorulian/desafio-roteirizador/blob/main/frontend/assets/Screenshot3.png" alt="register" border="0" width="48%" heigth="18%">
  
- <img src="https://github.com/igorulian/desafio-roteirizador/blob/main/frontend/assets/Screenshot.jpg" alt="register" border="0" width="48%" heigth="18%">
+ <img src="https://github.com/igorulian/desafio-roteirizador/blob/main/frontend/assets/Screenshot.png" alt="register" border="0" width="48%" heigth="18%">
  <img src="https://github.com/igorulian/desafio-roteirizador/blob/main/frontend/assets/Screenshot4.png" alt="register" border="0" width="48%" heigth="18%">
 </p>
 
