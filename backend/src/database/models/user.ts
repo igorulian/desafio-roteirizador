@@ -2,6 +2,7 @@ import { Document, Schema, model } from 'mongoose'
 import bcrypt from 'bcryptjs'
 
 export interface ICoord {
+  name: string,
   lat: number,
   lng: number
 }
@@ -12,14 +13,19 @@ export interface IRoute {
 }
 
 export interface IUser extends Document {
-    username: string;
-    email: string;
-    password: string;
-    createdAt: string;
-    history: IRoute[]
+  username: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  history: IRoute[]
 }
 
 export const coordScema: Schema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    default: 'Sem nome'
+  },
   lat: {
     type: Number,
     require: true
