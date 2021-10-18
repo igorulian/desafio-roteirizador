@@ -13,7 +13,7 @@ export const EditorContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 25%;
-    min-width: 320px;
+    min-width: 350px;
     height: 100%;
     box-shadow: 0 1px 3px #cdc6c6;
 `
@@ -69,7 +69,6 @@ export const OptionContainer = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: #fff;
     justify-content: space-between;
     align-items: center;
     padding-top: 100px;
