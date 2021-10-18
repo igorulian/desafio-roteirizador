@@ -9,6 +9,7 @@ import { RiRulerLine, RiSave3Fill } from 'react-icons/ri'
 import { ImClock } from 'react-icons/im'
 import { addRoute } from '../../../../Api/requests'
 import { calculateRouteDistance } from './distance'
+import env from '../../../../env.json'
 
 export interface INewRouteProps {
   updateOrigin: Function,
@@ -26,7 +27,7 @@ interface InputOptionProps {
   style?: any
 }
 
-export const GoogleApiKey = 'AIzaSyBRQRRY6z_IciTrG612AOj1iNWJQwt9eBw'
+const key = env.GoogleApiKey
 
 const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
   function setToCurrentLocation () {
@@ -48,7 +49,7 @@ const OriginInput:React.FC<InputOptionProps> = (props:InputOptionProps) => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Autocomplete
           placeholder='Digite o seu local de origem'
-          apiKey={GoogleApiKey}
+          apiKey={env.GoogleApiKey}
           options={{
             types: ['geocode', 'establishment']
           }}
@@ -76,7 +77,7 @@ const StopInput:React.FC<InputOptionProps> = (props:InputOptionProps) => (
       <EditorInputTitle> Parada: </EditorInputTitle>
       <Autocomplete
           placeholder='Digite um local de parada'
-          apiKey={GoogleApiKey}
+          apiKey={key}
           options={{ types: ['geocode', 'establishment'] }}
           onPlaceSelected={(place) => {
             const lat = place.geometry?.location?.lat()

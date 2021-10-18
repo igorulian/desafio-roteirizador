@@ -40,7 +40,7 @@ const Route:React.FC<IRouteProps> = (props:IRouteProps) => {
             </HorizontalDiv>
             <RouteDescription> {props.route.origin.name} </RouteDescription>
           </div>
-          <div>
+          <div style={{ marginTop: '10px' }}>
             <HorizontalDiv>
               <FaRoute/>
               <RouteTitle style={{ marginTop: '7px' }}> Rota: </RouteTitle>
@@ -57,7 +57,7 @@ const Route:React.FC<IRouteProps> = (props:IRouteProps) => {
             </HorizontalDiv>
             <RouteDescription> {distance}km </RouteDescription>
           </div>
-          <div>
+          <div style={{ marginTop: '10px' }}>
             <HorizontalDiv>
               <ImClock/>
               <RouteTitle style={{ marginTop: '7px' }}> Tempo: </RouteTitle>

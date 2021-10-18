@@ -1,8 +1,8 @@
 import Axios, { AxiosInstance } from 'axios'
-// import env from '../env.json'
+import env from '../env.json'
 
 const api:AxiosInstance = Axios.create({
-  baseURL: 'http://localhost:4000/api'
+  baseURL: env.BackendUrl
 })
 
 export const authorizaton = {

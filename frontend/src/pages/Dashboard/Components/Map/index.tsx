@@ -1,10 +1,13 @@
 import React from 'react'
 import { MapContainer } from './styles'
 import GoogleMapReact from 'google-map-react'
-import { GoogleApiKey, ICoords } from '../Editor/newRoute'
+import { ICoords } from '../Editor/newRoute'
 import { IoLocationSharp } from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib'
 import { colors } from '../../../../components/colors'
+import env from '../../../../env.json'
+
+const key = env.GoogleApiKey
 
 interface IMapProps {
   origin: ICoords,
@@ -38,7 +41,7 @@ const Map:React.FC<IMapProps> = (props:IMapProps) => {
   return (
         <MapContainer>
          <GoogleMapReact
-          bootstrapURLKeys={{ key: GoogleApiKey }}
+          bootstrapURLKeys={{ key }}
           zoom={isValidCoord(origin) ? 9 : 3}
           center={origin}
         >
