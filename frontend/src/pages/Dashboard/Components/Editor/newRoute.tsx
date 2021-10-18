@@ -151,12 +151,12 @@ const NewRoute:React.FC<INewRouteProps> = (props:INewRouteProps) => {
       <RouteInfoContainer>
         <HorizontalDiv>
           <FaRoute style={{ marginRight: '10px' }}/>
-          <RouteInfoText> Distância: {calculateDistanceGeral(start, stops).toFixed(2)}km</RouteInfoText>
+          <RouteInfoText> Distância: {calculateDistanceGeral(start, stops).toFixed(0)}km</RouteInfoText>
         </HorizontalDiv>
 
         <HorizontalDiv style={{ marginTop: '10px' }}>
           <FiClock style={{ marginRight: '10px' }}/>
-          <RouteInfoText> Tempo estimado: </RouteInfoText>
+          <RouteInfoText> Tempo estimado: {((calculateDistanceGeral(start, stops) / 100) * 60).toFixed(0)}min</RouteInfoText>
         </HorizontalDiv>
       </RouteInfoContainer>
     </OptionContainer>
