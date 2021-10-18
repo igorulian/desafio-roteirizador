@@ -4,9 +4,9 @@
      <a href="#" alt="link"> 📌 Roteirizador </a>
 </h1>
 
-<h3 align="center">
-      Teste, onde o objetivo era construir uma aplicação para roteirizar e guardar suas rotas.
-</h3>
+<p>
+      O desafio consiste em criar um simples roteirizador que permita ao usuário ter informações sobre o trajeto desejado. A cada roteirização realizada, o percurso informado pelo usuário deve ser guardado em um banco de dados, para que posteriormente seja possível exibir um histórico. Após a roteirização realizada, o mapa deve ser atualizado e exibir o caminho a ser percorrido, complementando com informações de distância e o tempo estimado.
+</p>
 
 <p align="center">
  <img src="https://github.com/igorulian/desafio-roteirizador/blob/main/frontend/assets/Screenshot2.png" alt="register" border="0" width="48%" heigth="18%">
