@@ -38,7 +38,10 @@ const Editor:React.FC<IEditorProps> = (props:IEditorProps) => {
             updateOrigin={(data:ICoords) => props.updateOrigin(data)}
             updateStops={(data:ICoords[]) => props.updateStops(data)}
           />
-        : <History/>
+        : <History
+            updateOrigin={(data:ICoords) => props.updateOrigin(data)}
+            updateStops={(data:ICoords[]) => props.updateStops(data)}
+          />
       }
 
     </EditorContainer>

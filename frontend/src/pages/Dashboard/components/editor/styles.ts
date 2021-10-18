@@ -53,6 +53,17 @@ export const StopsInputContainer = styled.div<StopsInputContainerProps>`
     max-height: 250px;
 `
 
+export const HistoryContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 50px;
+`
+
 export const OptionContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -183,4 +194,28 @@ export const HorizontalDiv = styled.div`
     display: flex;
     width: 100%;
     align-items: center;
+`
+
+export const RouteContainer = styled.div`
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@700&display=swap');
+    font-family: 'Public Sans', sans-serif; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: #fafafa;
+    color: #262930;
+    box-shadow: #e5e7eb 0px 0px 0px 1px inset;
+    margin-top: 20px;
+    cursor: pointer;
+`
+
+export const RouteContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 20px;
+    
 `

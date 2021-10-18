@@ -10,7 +10,7 @@ import { FaRoute } from 'react-icons/fa'
 import { FiClock } from 'react-icons/fi'
 import { addRoute } from '../../../../Api/requests'
 
-interface INewRouteProps {
+export interface INewRouteProps {
   updateOrigin: Function,
   updateStops: Function
 }

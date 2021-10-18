@@ -72,28 +72,61 @@ export async function requestLogin (data:ILoginRequest) {
     return { error: error.response ? error.response.data.error : 'Ocorreu um erro com os nossos servidores' }
   }
 }
+interface ICoordsResponse {
+  _id: string,
+  lat: number,
+  lng: number
+}
 
-interface IaddRoute {
+export interface IRoute {
   origin: ICoords,
   stops: ICoords[]
 }
 
-export async function addRoute (data:IaddRoute) {
+export interface IRouteResponse {
+  origin: ICoordsResponse,
+  stops: ICoordsResponse[]
+}
+
+interface IResponse {
+  data?: IRouteResponse[],
+  error?: any
+}
+
+export async function addRoute (data:IRoute) {
   try {
     const { stops, origin } = data
 
     if (!origin || !stops)
       return { error: 'Ocorreu um erro' }
 
-    const response:IRegisterResponse = await api.post('/history/add', data, authorizaton)
-
-    if (!response.data)
-      return { error: 'Ocorreu um erro ao adicionar a rota' }
+    const response:IResponse = await api.post('/history/add', data, authorizaton)
 
     if (response.error)
       return { error: response.error }
 
-    return {}
+    if (!response.data)
+      return { error: 'Ocorreu um erro ao adicionar a rota' }
+
+    return response
+  } catch (error:any) {
+    return { error: error.response ? error.response.data.error : 'Ocorreu um erro com os nossos servidores' }
+  }
+}
+
+export async function listRoutes () {
+  try {
+    const response:IResponse = await api.get('/history/list', authorizaton)
+
+    console.log(response)
+
+    if (!response.data)
+      return { error: 'Ocorreu um erro ao listar as rotas' }
+
+    if (response.error)
+      return { error: response.error }
+
+    return response
   } catch (error:any) {
     return { error: error.response ? error.response.data.error : 'Ocorreu um erro com os nossos servidores' }
   }
